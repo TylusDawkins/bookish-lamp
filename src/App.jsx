@@ -6,7 +6,7 @@ import { Calendar } from './calendar/Calendar';
 function App() {
   return (
     <div className="app">
-      <Calendar data-testid="calendar-component" />
+      <Calendar/>
     </div>
   );
 }

@@ -17,7 +17,6 @@
     justify-content: space-around;
     height: 5%;
     background-color: #f5f5f5;
-    border-bottom: 1px solid #e5e5e5;
 }
 
 .header-info{
@@ -27,21 +26,21 @@
 .calendar-month{
     font-size: 1.5rem;
     font-weight: 500;
-    color: #333;
+    color: #6e6e6e;
     padding-right: 15px;
 }
 
 .calendar-year{
     font-size: 1.5rem;
     font-weight: 500;
-    color: #333;
+    color: #6e6e6e;
 }
 
 .arrow{
     cursor: pointer;
     font-size: 2rem;
     font-weight: bolder;
-    color: #333;
+    color: #6e6e6e;
     user-select: none;
 }
 
@@ -50,6 +49,10 @@
     grid-template-columns: repeat(7, 1fr);
     font-size: 1.5em;
     gap:1em;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+    padding-top:1em;
+    padding-bottom:.5em
 }
 
 .calendar-dates{
@@ -58,4 +61,5 @@
     font-size: 1.25em;
     gap:1em;
     justify-items: center;
+    padding-top: 1em;
 }
