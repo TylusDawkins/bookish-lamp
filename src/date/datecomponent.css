@@ -1,0 +1,41 @@
+.today{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    background-color: rgb(194, 194, 194);
+    color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    width:2em;
+    height:2em;;
+}
+
+.selected{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 2em;
+    height: 2em
+}
+
+.past{
+    color:rgb(191, 191, 191);
+    pointer-events: none;
+}
+
+.date{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    width: 2em;
+    height: 2em;
+}

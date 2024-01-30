@@ -1,8 +1,13 @@
+// App.test.js
+
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders Calendar component', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  
+  // Check if the Calendar component is rendered within the App
+  const calendarElement = screen.getByTestId('calendar-component');
+  expect(calendarElement).toBeInTheDocument();
 });
