@@ -19,32 +19,39 @@ export const Calendar = () => {
         11: 'Dec',
     }
 
-    const monthIdx = useRef(new Date().getMonth());
-    
-    const getMonthStr = () => {
-        setMonth(monthsMap[monthIdx.current])
-    }
+
     
     //Variables
 
-    const [month, setMonth] = useState()
-
     const [selectedDate, setSelectedDate] = useState()
+
+    const [date, setDate] = useState(new Date())
 
     const today = new Date()
 
+    const monthIdx = useRef(date.getMonth());
+
+    const yearIdx = useRef(date.getFullYear());
+    
     //Functions
 
     const changeMonthIdx = (n) => {
-        monthIdx.current = monthIdx.current + n
+        if (date.getMonth() + n > 11) {
+            // monthIdx.current = 0
+            // yearIdx.current = yearIdx.current + 1
+            setDate(new Date(date.getFullYear() + 1 , 0, 1))
+        }
+        else if (date.getMonth() + n < 0) {
+            // monthIdx.current = 11
+            // yearIdx.current = yearIdx.current - 1
+            setDate(new Date(date.getFullYear() -1, 11, 1))
+        }
+        else {
+        //  monthIdx.current = monthIdx.current + n
+         setDate(new Date(date.getFullYear(), date.getMonth() + n, 1))
+        //  setDate(new Date(yearIdx.current, monthIdx.current, 1))
+        }
     }
-
-    useEffect(() => {
-        setMonth(monthsMap[monthIdx.current])
-    }, [])
-
-
-    const numDays = (y, m) => new Date(y, m, 0).getDate();
 
     return (
         <div className='calendar' data-testid="calendar">
@@ -52,20 +59,20 @@ export const Calendar = () => {
                 <div className='arrow left' onClick={(e) =>{
                     e.preventDefault()
                     changeMonthIdx(-1)
-                    getMonthStr()
+                    setSelectedDate(null)
                     }}>{'<'}</div>
                 <div className='header-info'>
                     <div className='calendar-month'>
-                        {month}
+                        {monthsMap[date.getMonth()]}
                     </div>
                     <div className='calendar-year'>
-                        {new Date().getFullYear()}
+                        {date.getFullYear()}
                     </div>
                 </div>
                 <div className='arrow right' onClick={(e) =>{
                     e.preventDefault()
                     changeMonthIdx(1)
-                    getMonthStr()
+                    setSelectedDate(null)
                     }}>{'>'}</div>
             </div>
             <div className='calendar-body'>
@@ -79,12 +86,12 @@ export const Calendar = () => {
                     <div className='day'>SAT</div>
                 </div>
                 <div className='calendar-dates'>
-                    {[...Array(numDays(new Date().getFullYear(), monthIdx.current+1))].map((e, i) => {
+                    {[...Array(new Date(date.getFullYear(),date.getMonth()+1, 0).getDate())].map((iJustWantedTheIndex, i) => {
                         return i===0 ? (
-                            <DateComponent day={i+1} currMonth={monthIdx.current} isFirst={true} selectedDate={selectedDate} setSelectedDate={setSelectedDate} today={today} key={i}/>
+                            <DateComponent day={i+1} month={date.getMonth()} year={date.getFullYear()}  isFirst={true} selectedDate={selectedDate} setSelectedDate={setSelectedDate} today={today} key={i}/>
                         ) :
                         (
-                            <DateComponent day={i+1} currMonth={monthIdx.current} isFirst={false} selectedDate={selectedDate} setSelectedDate={setSelectedDate} today={today} key={i}/>
+                            <DateComponent day={i+1} month={date.getMonth()} year={date.getFullYear()} isFirst={false} selectedDate={selectedDate} setSelectedDate={setSelectedDate} today={today} key={i}/>
                         )
                     })}
                 </div>

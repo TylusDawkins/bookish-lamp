@@ -1,11 +1,12 @@
 import './datecomponent.css';
 
-export const DateComponent = ({day, currMonth, isFirst, selectedDate, setSelectedDate, today}) => {
-
-    const date = new Date(new Date().getFullYear(), currMonth, day)
+export const DateComponent = ({day, month, year, isFirst, selectedDate, setSelectedDate, today}) => {
+    
+    const date = new Date(year, month, day)
+    date.setHours(0,0,0,0)
 
     const getWeekDay = () => {
-        return new Date(date.getFullYear(), currMonth, day).getDay() + 1;
+        return new Date(year, month, day).getDay() + 1;
     }
 
     const getClasses = () => {
@@ -13,22 +14,26 @@ export const DateComponent = ({day, currMonth, isFirst, selectedDate, setSelecte
         if (selectedDate === day) {
             classes += ' selected'
         }
-        if (day === new Date().getDate() && today.getMonth() === date.getMonth()){
+        if (day === today.getDate() && today.getMonth() === date.getMonth() && today.getFullYear() === date.getFullYear()){
             classes += ' today'
         }
-        if (today > date && today.getDate() !== date.getDate()){
+        else if (today > date){
             classes += ' past'
         }
         return classes
     }
 
+    const handleClick = () => {
+        setSelectedDate(day)
+    }
+
 
     return isFirst ? (
-            <div id={'date-component'} className={getClasses()} style={{gridColumnStart:getWeekDay()}} onClick={()=>setSelectedDate(day)} data-testid="date-component">
+            <div id={'date-component'} className={getClasses()} style={{gridColumnStart:getWeekDay()}} onClick={handleClick} data-testid="date-component">
                 {day}
             </div>
     ): (
-        <div id={'date-component'} className={getClasses()} onClick={()=>setSelectedDate(day)}>
+        <div id={'date-component'} className={getClasses()} onClick={handleClick}>
             {day}
         </div>
     )
