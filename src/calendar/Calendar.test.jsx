@@ -113,4 +113,22 @@ describe('Calendar Component', () => {
     expect(initialMonthText).not.toBe(updatedMonthText);
 
   })
+
+  it('starts on the correct "first day of the month"', () => {
+
+    jest.useFakeTimers('modern'); //Allow the use of fake timers
+    jest.setSystemTime(new Date(2024, 1, 1)); // Set the system time to February 1, 2024 (0-based month index)
+
+    // Render the Calendar component with the test date
+    render(<Calendar/>);
+
+    // Find the first day of the month in the calendar display
+    const firstDayOfMonth = screen.getByText('1');
+
+    // Verify that the first day of the month is correctly aligned with the first day of the week
+    // In this case, February 1, 2024, is a Thursday, so it should appear in the 5th column (Thursday column)
+    expect(firstDayOfMonth).toHaveStyle('grid-column-start: 5'); // Adjust this based on your grid layout
+  });
+
+  
 });
