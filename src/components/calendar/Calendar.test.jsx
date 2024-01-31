@@ -33,6 +33,10 @@ describe('Calendar Component', () => {
   });
 
   it('goes forward a month when clicking on right arrow', () => {
+
+    jest.useFakeTimers(); //Allow the use of fake timers
+    jest.setSystemTime(new Date(2024, 0, 1)); // Set the system time to December, 1, 2024 (0-based month index)
+
     const monthsMap = {
       0: 'Jan',
       1: 'Feb',
@@ -68,24 +72,43 @@ describe('Calendar Component', () => {
     // Get the updated month
     const updatedMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
 
-    //Checks end of year edge case
-    if (initialMonthText === 'Dec'){
-      expect(updatedMonthText).toBe('Jan');
-    } else {
-      expect(updatedMonthText).toBe(monthsMap[month + 1]);
-    }
-
-    expect(initialMonthText).not.toBe(updatedMonthText);
+    expect(updatedMonthText).toBe(monthsMap[month + 1]);
 
   })
 
-  it('goes back a month when clicking on right arrow', () => {
+  it('should go to January when clicking on right arrow from December and increment year', ()=>{
 
-  const date = new Date();
+    jest.useFakeTimers(); //Allow the use of fake timers
+    jest.setSystemTime(new Date(2024, 11, 1)); // Set the system time to December, 1, 2024 (0-based month index)
 
-  const month = date.getMonth()
-  //gets the name of the month
-  const monthStr = monthsMap[month]
+    // Render the Calendar component with the test date
+    render(<Calendar/>);
+
+    const initialMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
+
+    expect(initialMonthText).toBe('Dec');
+
+    // Click on the right arrow to change the month
+    const rightArrow = screen.getByText('>');
+    fireEvent.click(rightArrow);
+
+    // Get the updated month
+    const updatedMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
+
+    expect(updatedMonthText).toBe('Jan');
+    
+  })
+
+  it('goes back a month when clicking on left arrow', () => {
+
+    jest.useFakeTimers(); //Allow the use of fake timers
+    jest.setSystemTime(new Date(2024, 11, 1)); // Set the system time to December, 1, 2024 (0-based month index)
+
+    const date = new Date();
+
+    const month = date.getMonth()
+    //gets the name of the month
+    const monthStr = monthsMap[month]
 
 
     render(<Calendar />);
@@ -104,14 +127,32 @@ describe('Calendar Component', () => {
 
 
     //Checks beginning of year edge case
-    if (initialMonthText === 'Jan'){
-      expect(updatedMonthText).toBe('Dec');
-    } else {
-      expect(updatedMonthText).toBe(monthsMap[month]);
-    }
     
-    expect(initialMonthText).not.toBe(updatedMonthText);
+    expect(updatedMonthText).toBe(monthsMap[month - 1]);
 
+  })
+
+  it('should go to December when clicking on left arrow from Jan', ()=>{
+
+    jest.useFakeTimers(); //Allow the use of fake timers
+    jest.setSystemTime(new Date(2024, 0, 1)); // Set the system time to December, 1, 2024 (0-based month index)
+
+    // Render the Calendar component with the test date
+    render(<Calendar/>);
+
+    const initialMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
+
+    expect(initialMonthText).toBe('Jan');
+
+    // Click on the right arrow to change the month
+    const leftArrow = screen.getByText('<');
+    fireEvent.click(leftArrow);
+
+    // Get the updated month
+    const updatedMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
+
+    expect(updatedMonthText).toBe('Dec');
+    
   })
 
   it('starts on the correct "first day of the month"', () => {
