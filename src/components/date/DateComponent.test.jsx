@@ -41,4 +41,30 @@ describe('DateComponent', () => {
     expect(dateComponent).toBeInTheDocument();
   });
 
+  it('calls setSelectedDay when clicked', () => {
+    // Create a mock function for setSelectedDay
+    const setSelectedDate = jest.fn();
+
+    // Render the DateComponent with necessary props
+    render(
+      <DateComponent
+        day={15}
+        month={0}
+        year={2024}
+        isFirst={true}
+        setSelectedDate={setSelectedDate}
+        today={new Date(2024, 0, 15)} // Set today's date to match the DateComponent's date
+      />
+    );
+
+    // Find the DateComponent element
+    const dateComponent = screen.getByText('15');
+
+    // Simulate a click on the DateComponent
+    fireEvent.click(dateComponent);
+
+    // Verify that setSelectedDay was called with the expected argument
+    expect(setSelectedDate).toHaveBeenCalledWith(15);
+  });
+
 });

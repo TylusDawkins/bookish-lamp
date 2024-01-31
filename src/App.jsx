@@ -1,7 +1,7 @@
 // App.js
 
 import './App.css';
-import { Calendar } from './calendar/Calendar';
+import { Calendar } from './components/calendar/Calendar';
 
 function App() {
   return (

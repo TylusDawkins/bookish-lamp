@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import './calendar.css';
 import { DateComponent } from '../date/DateComponent';
 
@@ -28,14 +28,10 @@ export const Calendar = () => {
     const [date, setDate] = useState(new Date())
 
     const today = new Date()
-
-    const monthIdx = useRef(date.getMonth());
-
-    const yearIdx = useRef(date.getFullYear());
     
     //Functions
 
-    const changeMonthIdx = (n) => {
+    const changeMonth = (n) => {
         if (date.getMonth() + n > 11) {
             setDate(new Date(date.getFullYear() + 1 , 0, 1))
         }
@@ -52,7 +48,7 @@ export const Calendar = () => {
             <div className='calendar-header'>
                 <div className='arrow left' onClick={(e) =>{
                     e.preventDefault()
-                    changeMonthIdx(-1)
+                    changeMonth(-1)
                     setSelectedDate(null)
                     }}>{'<'}</div>
                 <div className='header-info'>
@@ -65,7 +61,7 @@ export const Calendar = () => {
                 </div>
                 <div className='arrow right' onClick={(e) =>{
                     e.preventDefault()
-                    changeMonthIdx(1)
+                    changeMonth(1)
                     setSelectedDate(null)
                     }}>{'>'}</div>
             </div>
