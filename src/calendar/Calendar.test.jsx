@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
-import { Calendar } from './Calendar'; // Make sure to adjust the import path
+import { Calendar } from './Calendar';
 
 describe('Calendar Component', () => {
   const monthsMap = {
@@ -68,6 +68,7 @@ describe('Calendar Component', () => {
     // Get the updated month
     const updatedMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
 
+    //Checks end of year edge case
     if (initialMonthText === 'Dec'){
       expect(updatedMonthText).toBe('Jan');
     } else {
@@ -83,7 +84,7 @@ describe('Calendar Component', () => {
   const date = new Date();
 
   const month = date.getMonth()
-
+  //gets the name of the month
   const monthStr = monthsMap[month]
 
 
@@ -101,6 +102,8 @@ describe('Calendar Component', () => {
     // Get the updated month
     const updatedMonthText = screen.getByText(/Jan|Feb|March|April|May|June|July|Aug|Sep|Oct|Nov|Dec/).textContent;
 
+
+    //Checks beginning of year edge case
     if (initialMonthText === 'Jan'){
       expect(updatedMonthText).toBe('Dec');
     } else {

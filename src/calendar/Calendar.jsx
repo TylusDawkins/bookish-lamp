@@ -37,19 +37,13 @@ export const Calendar = () => {
 
     const changeMonthIdx = (n) => {
         if (date.getMonth() + n > 11) {
-            // monthIdx.current = 0
-            // yearIdx.current = yearIdx.current + 1
             setDate(new Date(date.getFullYear() + 1 , 0, 1))
         }
         else if (date.getMonth() + n < 0) {
-            // monthIdx.current = 11
-            // yearIdx.current = yearIdx.current - 1
             setDate(new Date(date.getFullYear() -1, 11, 1))
         }
         else {
-        //  monthIdx.current = monthIdx.current + n
          setDate(new Date(date.getFullYear(), date.getMonth() + n, 1))
-        //  setDate(new Date(yearIdx.current, monthIdx.current, 1))
         }
     }
 

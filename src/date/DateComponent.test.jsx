@@ -15,6 +15,7 @@ describe('DateComponent', () => {
   });
 
   it('applies the "selected" class when selectedDate matches day', () => {
+    // Tests if the selected class is applied when the selectedDate matches the day
     const { container } = render(
       <DateComponent day={10} month={0} isFirst={true} selectedDate={10} today={new Date()} />
     );
@@ -23,6 +24,7 @@ describe('DateComponent', () => {
   });
 
   it('applies the "today" class when day is today', () => {
+    // Tests if the today class is applied when the day is today
     const {container} = render(
       <DateComponent day={today.getDate()} month={today.getMonth()} year={today.getFullYear()} isFirst={true} today={today} />
     );
@@ -31,54 +33,12 @@ describe('DateComponent', () => {
   });
 
   it('applies the "past" class when day is in the past', () => {
+    // Tests if the past class is applied when the day is in the past
     const { container } = render(
-      <DateComponent day={today.getDate()} month={today.getMonth()} year={today.getFullYear() -1} isFirst={true} today={today} />
+      <DateComponent day={25} month={today.getMonth()} year={today.getFullYear() -1} isFirst={true} today={today} />
     );
     const dateComponent = container.querySelector('.date.past');
     expect(dateComponent).toBeInTheDocument();
   });
 
 });
-
-
-
-
-// // datecomponent.test.js
-
-// import React from 'react';
-// import { fireEvent, screen, render } from '@testing-library/react'; // Import 'render' here
-
-// import { DateComponent } from './DateComponent'; // Make sure to adjust the import path
-
-// describe('DateComponent', () => {
-    
-  // it('applies the "today" class when day is today', () => {
-  //   const today = new Date();
-  //   const { container } = render(
-  //     <DateComponent day={today.getDate()} month={today.getMonth()} isFirst={true} today={today} />
-  //   );
-  //   const dateComponent = container.querySelector('.date.today');
-  //   expect(dateComponent).toBeInTheDocument();
-  // });
-
-//   it('applies the "past" class when day is in the past', () => {
-//     const today = new Date();
-//     const yesterday = new Date(today);
-//     yesterday.setDate(today.getDate() - 1);
-//     const { container } = render(
-//       <DateComponent day={yesterday.getDate()} month={yesterday.getMonth()} isFirst={true} today={today} />
-//     );
-//     const dateComponent = container.querySelector('.date.past');
-//     expect(dateComponent).toBeInTheDocument();
-//   });
-
-//   it('calls setSelectedDate when clicked', () => {
-//     const setSelectedDate = jest.fn();
-//     const { getByTestId } = render(
-//       <DateComponent day={15} month={0} isFirst={true} setSelectedDate={setSelectedDate} />
-//     );
-//     const dateComponent = getByTestId('date-component');
-//     fireEvent.click(dateComponent);
-//     expect(setSelectedDate).toHaveBeenCalledWith(15);
-//   });
-// });
