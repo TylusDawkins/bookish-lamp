@@ -116,7 +116,7 @@ describe('Calendar Component', () => {
 
   it('starts on the correct "first day of the month"', () => {
 
-    jest.useFakeTimers('modern'); //Allow the use of fake timers
+    jest.useFakeTimers(); //Allow the use of fake timers
     jest.setSystemTime(new Date(2024, 1, 1)); // Set the system time to February 1, 2024 (0-based month index)
 
     // Render the Calendar component with the test date
